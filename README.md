@@ -86,5 +86,3 @@ http://127.0.0.1:8000/docs
 Para dúvidas, sugestões ou contribuições, abra uma issue ou envie um pull request.
 
 ---
-
-**Desenvolvido com ❤️ por \[Seu Nome / Seu GitHub]**
