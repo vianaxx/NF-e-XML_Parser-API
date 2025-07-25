@@ -35,8 +35,8 @@ API RESTful desenvolvida em FastAPI para importar, extrair e consultar dados de 
 1. Clone o repositório:
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
-cd NF-e-XML_Parser-API_
+git clone  https://github.com/vianaxx/NF-e-XML_Parser-API
+cd NF-e-XML_Parser-API
 ````
 
 2. Crie e ative um ambiente virtual Python:
@@ -65,19 +65,6 @@ uvicorn main:app --reload
 
 ```
 http://127.0.0.1:8000/docs
-```
-
----
-
-## Como enviar para um repositório Git remoto
-
-```bash
-git init                   # se ainda não inicializou o repo local
-git add .                  # adiciona todos os arquivos
-git commit -m "Projeto inicial NF-e XML Parser API: estrutura, modelos, upload e parser"
-git branch -M main         # opcional, muda o nome da branch principal para main
-git remote add origin <URL_DO_REPOSITORIO>   # substitua pela URL do seu repositório remoto
-git push -u origin main
 ```
 
 ---
