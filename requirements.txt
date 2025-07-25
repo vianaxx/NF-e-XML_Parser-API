@@ -1,0 +1,9 @@
+uvicorn[standard]
+SQLAlchemy
+asyncpg
+alembic
+pydantic
+xmltodict
+pytest
+httpx
+
