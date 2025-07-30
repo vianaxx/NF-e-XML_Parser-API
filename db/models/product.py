@@ -15,3 +15,4 @@ class Product(Base):
     nfe_id = Column(Integer, ForeignKey("nfe.id"))
 
     nfe = relationship("NFe", back_populates="produtos")
+    impostos = relationship("Imposto", back_populates="produto", cascade="all, delete-orphan")

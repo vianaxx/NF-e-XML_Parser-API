@@ -1,5 +1,9 @@
 from decimal import Decimal
+from typing import List
+
 from pydantic import BaseModel
+
+from schemas.imposto import ImpostoCreate, Imposto
 
 
 class ProductBase(BaseModel):
@@ -8,7 +12,7 @@ class ProductBase(BaseModel):
     quantidade: Decimal
     valor_unitario: Decimal
     valor_total: Decimal
-
+    impostos: List[ImpostoCreate] = []
 
 class ProductCreate(ProductBase):
     pass
@@ -16,6 +20,7 @@ class ProductCreate(ProductBase):
 
 class Product(ProductBase):
     id: int
+    impostos: List[Imposto]
 
     class Config:
         from_attributes = True
