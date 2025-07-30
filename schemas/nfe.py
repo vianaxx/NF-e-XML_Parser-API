@@ -3,6 +3,8 @@ from decimal import Decimal
 from typing import List, Optional
 from pydantic import BaseModel, constr
 from schemas.product import Product, ProductCreate
+from schemas.transportadora import Transportadora, TransportadoraCreate
+
 
 class NFeBase(BaseModel):
     chave_acesso: constr(min_length=44, max_length=44)
@@ -15,6 +17,7 @@ class NFeBase(BaseModel):
     nome_destinatario: Optional[str]
     valor_total: Decimal
     produtos: List[ProductCreate]
+    transportadora: Optional[TransportadoraCreate]
 
 class NFeCreate(NFeBase):
     pass
@@ -22,6 +25,7 @@ class NFeCreate(NFeBase):
 class NFe(NFeBase):
     id: int
     produtos: List[Product]
+    transportadora: Optional[Transportadora]
 
     class Config:
         orm_mode = True

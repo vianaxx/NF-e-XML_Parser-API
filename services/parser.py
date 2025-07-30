@@ -37,6 +37,19 @@ def parse_nfe_xml(xml_str: str) -> dict:
             "valor_total": Decimal(prod.get("vProd", "0")),
         })
 
+    transp = infNFe.get("transp", {}).get("transporta", {})
+
+    transportadora = None
+    if transp:
+        transportadora = {
+            "cnpj": transp.get("CNPJ"),
+            "cpf": transp.get("CPF"),
+            "nome": transp.get("xNome"),
+            "ie": transp.get("IE"),
+            "endereco": None  # geralmente não vem diretamente, pode precisar ser obtido de outro lugar
+        }
+
+
     data_emissao = ide.get("dhEmi") or ide.get("dEmi")
     if data_emissao and "T" in data_emissao:
         data_emissao = datetime.fromisoformat(data_emissao)
@@ -54,4 +67,6 @@ def parse_nfe_xml(xml_str: str) -> dict:
         "nome_destinatario": dest.get("xNome"),
         "valor_total": Decimal(infNFe.get("total", {}).get("ICMSTot", {}).get("vNF", "0")),
         "produtos": produtos,
+        "transportadora": transportadora,
+
     }

@@ -17,3 +17,4 @@ class NFe(Base):
     valor_total = Column(Numeric(10, 2), nullable=False)
 
     produtos = relationship("Product", back_populates="nfe", cascade="all, delete-orphan")
+    transportadora = relationship("Transportadora", back_populates="nfe", uselist=False, cascade="all, delete-orphan")
