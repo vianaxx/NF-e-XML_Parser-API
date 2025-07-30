@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime, Numeric, ForeignKey
 from sqlalchemy.orm import relationship
 from db.database import Base
 
+
 class NFe(Base):
     __tablename__ = "nfe"
 
@@ -14,6 +15,9 @@ class NFe(Base):
 
     emitente_id = Column(Integer, ForeignKey("emitente.id"), nullable=False)
     emitente = relationship("Emitente", back_populates="nfe", uselist=False)
+
+    destinatario_cnpj = Column(String(14), ForeignKey("destinatarios.cnpj"))
+    destinatario = relationship("Destinatario", back_populates="nfe", lazy="joined")
 
     produtos = relationship("Product", back_populates="nfe", cascade="all, delete-orphan")
     transportadora = relationship("Transportadora", back_populates="nfe", uselist=False, cascade="all, delete-orphan")

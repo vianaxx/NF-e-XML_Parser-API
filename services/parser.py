@@ -58,6 +58,14 @@ def parse_nfe_xml(xml_str: str) -> dict:
         "endereco": None,
     }
 
+    dest = infNFe.get("dest", {})
+
+    destinatario = {
+        "cnpj": dest.get("CNPJ"),
+        "nome": dest.get("xNome"),
+        "ie": dest.get("IE"),
+        "endereco": None  # Adapte se quiser extrair endereço completo
+    }
 
     data_emissao = ide.get("dhEmi") or ide.get("dEmi")
     if data_emissao and "T" in data_emissao:
@@ -73,6 +81,7 @@ def parse_nfe_xml(xml_str: str) -> dict:
         "valor_total": Decimal(infNFe.get("total", {}).get("ICMSTot", {}).get("vNF", "0")),
         "produtos": produtos,
         "transportadora": transportadora,
-        "emitente": emitente
+        "emitente": emitente,
+        "destinatario": destinatario
     }
 
