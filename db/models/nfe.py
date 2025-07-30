@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Numeric
+from sqlalchemy import Column, Integer, String, DateTime, Numeric, ForeignKey
 from sqlalchemy.orm import relationship
 from db.database import Base
 
@@ -10,11 +10,10 @@ class NFe(Base):
     numero = Column(String, nullable=False)
     serie = Column(String, nullable=False)
     data_emissao = Column(DateTime, nullable=False)
-    cnpj_emitente = Column(String(14), nullable=False)
-    nome_emitente = Column(String, nullable=False)
-    cnpj_destinatario = Column(String(14), nullable=True)
-    nome_destinatario = Column(String, nullable=True)
     valor_total = Column(Numeric(10, 2), nullable=False)
+
+    emitente_id = Column(Integer, ForeignKey("emitente.id"), nullable=False)
+    emitente = relationship("Emitente", back_populates="nfe", uselist=False)
 
     produtos = relationship("Product", back_populates="nfe", cascade="all, delete-orphan")
     transportadora = relationship("Transportadora", back_populates="nfe", uselist=False, cascade="all, delete-orphan")

@@ -46,8 +46,17 @@ def parse_nfe_xml(xml_str: str) -> dict:
             "cpf": transp.get("CPF"),
             "nome": transp.get("xNome"),
             "ie": transp.get("IE"),
-            "endereco": None  # geralmente não vem diretamente, pode precisar ser obtido de outro lugar
+            "endereco": None
         }
+
+    emit = infNFe.get("emit", {})
+
+    emitente = {
+        "cnpj": emit.get("CNPJ"),
+        "nome": emit.get("xNome"),
+        "ie": emit.get("IE"),
+        "endereco": None,
+    }
 
 
     data_emissao = ide.get("dhEmi") or ide.get("dEmi")
@@ -61,12 +70,9 @@ def parse_nfe_xml(xml_str: str) -> dict:
         "numero": ide.get("nNF"),
         "serie": ide.get("serie"),
         "data_emissao": data_emissao,
-        "cnpj_emitente": emit.get("CNPJ"),
-        "nome_emitente": emit.get("xNome"),
-        "cnpj_destinatario": dest.get("CNPJ") or dest.get("CPF"),
-        "nome_destinatario": dest.get("xNome"),
         "valor_total": Decimal(infNFe.get("total", {}).get("ICMSTot", {}).get("vNF", "0")),
         "produtos": produtos,
         "transportadora": transportadora,
-
+        "emitente": emitente
     }
+

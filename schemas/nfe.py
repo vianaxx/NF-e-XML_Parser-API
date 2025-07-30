@@ -2,6 +2,8 @@ from datetime import datetime
 from decimal import Decimal
 from typing import List, Optional
 from pydantic import BaseModel, constr
+
+from schemas.emitente import EmitenteCreate, Emitente
 from schemas.product import Product, ProductCreate
 from schemas.transportadora import Transportadora, TransportadoraCreate
 
@@ -11,13 +13,10 @@ class NFeBase(BaseModel):
     numero: str
     serie: str
     data_emissao: datetime
-    cnpj_emitente: constr(min_length=14, max_length=14)
-    nome_emitente: str
-    cnpj_destinatario: Optional[constr(min_length=11, max_length=14)]
-    nome_destinatario: Optional[str]
     valor_total: Decimal
     produtos: List[ProductCreate]
     transportadora: Optional[TransportadoraCreate]
+    emitente: EmitenteCreate
 
 class NFeCreate(NFeBase):
     pass
@@ -26,6 +25,7 @@ class NFe(NFeBase):
     id: int
     produtos: List[Product]
     transportadora: Optional[Transportadora]
+    emitente: Emitente
 
     class Config:
-        orm_mode = True
+        from_attributes = True
