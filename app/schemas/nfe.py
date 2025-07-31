@@ -1,12 +1,11 @@
+from pydantic import BaseModel, constr
 from datetime import datetime
 from decimal import Decimal
 from typing import List, Optional
-from pydantic import BaseModel, constr
-
-from schemas.destinatario import DestinatarioCreate, Destinatario
-from schemas.emitente import EmitenteCreate, Emitente
-from schemas.product import Product, ProductCreate
-from schemas.transportadora import Transportadora, TransportadoraCreate
+from app.schemas.emitente import EmitenteCreate, Emitente
+from app.schemas.destinatario import DestinatarioCreate, Destinatario
+from app.schemas.transportadora import TransportadoraCreate, Transportadora
+from app.schemas.product import ProductCreate, Product
 
 
 class NFeBase(BaseModel):
@@ -20,6 +19,9 @@ class NFeBase(BaseModel):
     emitente: EmitenteCreate
     destinatario: DestinatarioCreate
 
+    class Config:
+        from_attributes = True
+
 
 class NFeCreate(NFeBase):
     pass
@@ -31,6 +33,3 @@ class NFe(NFeBase):
     transportadora: Optional[Transportadora]
     emitente: Emitente
     destinatario: Destinatario
-
-    class Config:
-        from_attributes = True

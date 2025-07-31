@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.orm import relationship
-from db.database import Base
+from app.db.base import Base
 
 
 class Transportadora(Base):
@@ -10,8 +10,13 @@ class Transportadora(Base):
     cnpj = Column(String(14), nullable=True)
     cpf = Column(String(11), nullable=True)
     nome = Column(String, nullable=True)
-    ie = Column(String, nullable=True)  # inscrição estadual
+    ie = Column(String, nullable=True)
     endereco = Column(String, nullable=True)
 
     nfe_id = Column(Integer, ForeignKey("nfe.id"))
-    nfe = relationship("NFe", back_populates="transportadora")
+    nfe = relationship(
+        "NFe",
+        back_populates="transportadora",
+        foreign_keys=[nfe_id]
+    )
+
