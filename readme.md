@@ -2,7 +2,7 @@
 ---
 # NFe XML Parser API
 
-API para upload e parse de XMLs de Nota Fiscal Eletrônica (NFe) com persistência via SQLAlchemy.
+API RESTful desenvolvida em FastAPI para importar, extrair e consultar dados de pedidos a partir de arquivos XML da Nota Fiscal Eletrônica (NF-e).
 
 ## Tecnologias
 
