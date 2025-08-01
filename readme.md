@@ -2,7 +2,9 @@
 ---
 # NFe XML Parser API
 
-API RESTful desenvolvida em FastAPI para importar, extrair e consultar dados de pedidos a partir de arquivos XML da Nota Fiscal Eletrônica (NF-e).
+Este projeto implementa uma API para o processamento e armazenamento de Notas Fiscais Eletrônicas (NF-e) a partir de arquivos XML. Ele realiza o parsing dos XMLs, extrai dados relevantes como emitente, destinatário, transportadora, produtos e impostos, e salva essas informações em um banco de dados relacional utilizando SQLAlchemy.
+
+---
 
 ## Tecnologias
 
@@ -12,6 +14,19 @@ API RESTful desenvolvida em FastAPI para importar, extrair e consultar dados de 
 - lxml & xmltodict
 - Pydantic
 - pytest + httpx
+
+---
+
+## Funcionalidades
+
+- Parser robusto para arquivos XML da NF-e (versão 4.00).
+- Modelagem relacional com entidades: Emitente, Destinatário, Transportadora, NF-e, Produto e Imposto.
+- Validação para evitar duplicidade de registros (emitente, destinatário, transportadora e NF-e).
+- Criação automática ou reutilização de entidades relacionadas ao salvar uma NF-e.
+- Relacionamentos via chaves estrangeiras para garantir integridade referencial.
+- Exemplo de uso com SQLite, mas pode ser adaptado para outros bancos.
+
+---
 
 ## Instalação
 
@@ -34,14 +49,6 @@ pytest
 ## Endpoints
 
 * `POST /api/nfe/upload`: Upload do XML da NFe para parsing e salvamento no banco.
-
----
-
-## Exemplo de uso com curl
-
-```bash
-curl -X POST "http://localhost:8000/api/nfe/upload" -F "file=@exemplo.xml"
-```
 
 ---
 
