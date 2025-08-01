@@ -1,28 +1,30 @@
-from pydantic import BaseModel, constr
-from typing import Optional
+from sqlalchemy import Column, String, Integer, UniqueConstraint
+from sqlalchemy.orm import relationship
+from app.db.base import Base
 
 
-class DestinatarioBase(BaseModel):
-    cnpj: Optional[str] = None
-    nome: str
-    ie: Optional[str]
-    endereco: Optional[str]
-    numero: Optional[str]
-    bairro: Optional[str]
-    municipio: Optional[str]
-    codigo_municipio: Optional[str]
-    uf: Optional[str]
-    cep: Optional[str]
-    codigo_pais: Optional[str]
-    pais: Optional[str]
+class Destinatario(Base):
+    __tablename__ = "destinatarios"
 
-    class Config:
-        from_attributes = True
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    cnpj = Column(String, index=True, nullable=True)
+    nome = Column(String, nullable=False)
+    ie = Column(String, nullable=True)
+    endereco = Column(String, nullable=True)
+    numero = Column(String, nullable=True)
+    bairro = Column(String, nullable=True)
+    municipio = Column(String, nullable=True)
+    codigo_municipio = Column(String, nullable=True)
+    uf = Column(String, nullable=True)
+    cep = Column(String, nullable=True)
+    codigo_pais = Column(String, nullable=True)
+    pais = Column(String, nullable=True)
 
+    nfes = relationship("NFe", back_populates="destinatario", uselist=False)
 
-class DestinatarioCreate(DestinatarioBase):
-    pass
-
-
-class Destinatario(DestinatarioBase):
-    pass
+    __table_args__ = (
+        UniqueConstraint(
+            "cnpj", "endereco", "numero", "bairro", "municipio", "uf", "cep",
+            name="uix_destinatario_unico"
+        ),
+    )
