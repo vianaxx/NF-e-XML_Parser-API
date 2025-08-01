@@ -14,13 +14,10 @@ class NFeBase(BaseModel):
     serie: str
     data_emissao: datetime
     valor_total: Decimal
-    produtos: List[ProductCreate]
-    transportadora: Optional[TransportadoraCreate]
     emitente: EmitenteCreate
     destinatario: DestinatarioCreate
-
-    class Config:
-        from_attributes = True
+    transportadora: Optional[TransportadoraCreate]
+    produtos: List[ProductCreate]
 
 
 class NFeCreate(NFeBase):
@@ -33,3 +30,6 @@ class NFe(NFeBase):
     transportadora: Optional[Transportadora]
     emitente: Emitente
     destinatario: Destinatario
+
+    class Config:
+        from_attributes = True

@@ -1,12 +1,13 @@
-
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Integer
 from app.db.base import Base
 from sqlalchemy.orm import relationship
 
-class Emitente(Base):
-    __tablename__ = "emitente"
 
-    cnpj = Column(String(14), primary_key=True, index=True)
+class Emitente(Base):
+    __tablename__ = "emitentes"
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    cnpj = Column(String(20), unique=True, nullable=False)
     nome = Column(String, nullable=True)
     fantasia = Column(String, nullable=True)
     ie = Column(String, nullable=True)
@@ -21,4 +22,4 @@ class Emitente(Base):
     codigo_pais = Column(String, nullable=True)
     pais = Column(String, nullable=True)
 
-    nfe = relationship("NFe", back_populates="emitente")
+    nfes = relationship("NFe", back_populates="emitente")

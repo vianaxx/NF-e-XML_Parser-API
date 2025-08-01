@@ -1,12 +1,13 @@
-
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
 from app.db.base import Base
+
 
 class Destinatario(Base):
     __tablename__ = "destinatarios"
 
-    cnpj = Column(String(14), primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    cnpj = Column(String, unique=True, index=True, nullable=True)
     nome = Column(String, nullable=False)
     ie = Column(String, nullable=True)
     endereco = Column(String, nullable=True)
@@ -19,4 +20,4 @@ class Destinatario(Base):
     codigo_pais = Column(String, nullable=True)
     pais = Column(String, nullable=True)
 
-    nfe = relationship("NFe", back_populates="destinatario", uselist=False)
+    nfes = relationship("NFe", back_populates="destinatario", uselist=False)

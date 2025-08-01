@@ -62,6 +62,9 @@ def get_or_create_product(db: Session, product_data):
 
 
 def save_nfe(db: Session, nfe_data: NFeCreate):
+    existing_nfe = db.query(NFe).filter_by(chave_acesso=nfe_data.chave_acesso).first()
+    if existing_nfe:
+        raise ValueError(f"NF-e com chave {nfe_data.chave_acesso} já foi importada.")
     emitente = get_or_create_emitente(db, nfe_data.emitente)
     destinatario = get_or_create_destinatario(db, nfe_data.destinatario)
     transportadora = get_or_create_transportadora(db, nfe_data.transportadora)
@@ -72,9 +75,9 @@ def save_nfe(db: Session, nfe_data: NFeCreate):
         serie=nfe_data.serie,
         data_emissao=nfe_data.data_emissao,
         valor_total=nfe_data.valor_total,
-        emitente_cnpj=emitente.cnpj,
-        destinatario_cnpj=destinatario.cnpj,
-        transportadora=transportadora
+        emitente_id=emitente.id,
+        destinatario_id=destinatario.id,
+        transportadora_id=transportadora.id
     )
     db.add(nfe)
     db.commit()

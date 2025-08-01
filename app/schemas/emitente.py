@@ -1,6 +1,7 @@
 from pydantic import BaseModel, constr
 from typing import Optional
 
+
 class EmitenteBase(BaseModel):
     cnpj: constr(min_length=14, max_length=14)
     nome: Optional[str]
@@ -17,12 +18,13 @@ class EmitenteBase(BaseModel):
     codigo_pais: Optional[str]
     pais: Optional[str]
 
-    class Config:
-        from_attributes = True
 
 class EmitenteCreate(EmitenteBase):
     pass
 
-class Emitente(EmitenteBase):
-    pass
 
+class Emitente(EmitenteBase):
+    id: int
+
+    class Config:
+        from_attributes = True
