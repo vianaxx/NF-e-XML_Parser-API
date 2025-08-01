@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, Numeric, ForeignKey
 from sqlalchemy.orm import relationship
 from app.db.base import Base
 
+
 class Imposto(Base):
     __tablename__ = "impostos"
 
