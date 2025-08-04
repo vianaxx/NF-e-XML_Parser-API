@@ -5,7 +5,7 @@ from app.schemas.nfe import NFeCreate
 from app.schemas.emitente import EmitenteCreate
 from app.schemas.destinatario import DestinatarioCreate
 from app.schemas.transportadora import TransportadoraCreate
-from app.schemas.product import ProductCreate
+from app.schemas.produto import ProdutoCreate
 from app.schemas.imposto import ImpostoCreate
 from typing import List, Optional
 
@@ -78,7 +78,7 @@ def parse_nfe_xml(xml_str: str) -> NFeCreate:
         )
 
     # Produtos e Impostos
-    produtos: List[ProductCreate] = []
+    produtos: List[ProdutoCreate] = []
     for item in det:
         prod = item.get("prod", {})
         imposto_data = item.get("imposto", {})
@@ -116,7 +116,7 @@ def parse_nfe_xml(xml_str: str) -> NFeCreate:
             if valor:
                 impostos.append(ImpostoCreate(tipo="COFINS", grupo="COFINS", chave="vCOFINS", valor=Decimal(valor)))
 
-        produto = ProductCreate(
+        produto = ProdutoCreate(
             codigo=prod.get("cProd"),
             descricao=prod.get("xProd"),
             quantidade=Decimal(prod.get("qCom", "0")),

@@ -12,5 +12,5 @@ class Imposto(Base):
     chave = Column(String, nullable=True)  # vICMS, vIPI ...
     valor = Column(Numeric(14, 2), nullable=False)
 
-    product_id = Column(Integer, ForeignKey("product.id"))
-    produto = relationship("Product", back_populates="impostos")
+    product_id = Column(Integer, ForeignKey("produtos.id"))
+    produto = relationship("Produtos", back_populates="impostos")

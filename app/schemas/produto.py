@@ -4,7 +4,7 @@ from typing import List
 from app.schemas.imposto import Imposto, ImpostoCreate
 
 
-class ProductBase(BaseModel):
+class ProdutoBase(BaseModel):
     codigo: str
     descricao: str
     quantidade: Decimal
@@ -16,10 +16,10 @@ class ProductBase(BaseModel):
         from_attributes = True
 
 
-class ProductCreate(ProductBase):
+class ProdutoCreate(ProdutoBase):
     pass
 
 
-class Product(ProductBase):
+class Produto(ProdutoBase):
     id: int
     impostos: List[Imposto]

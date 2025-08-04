@@ -5,7 +5,7 @@ from typing import List, Optional
 from app.schemas.emitente import EmitenteCreate, Emitente
 from app.schemas.destinatario import DestinatarioCreate, Destinatario
 from app.schemas.transportadora import TransportadoraCreate, Transportadora
-from app.schemas.product import ProductCreate, Product
+from app.schemas.produto import ProdutoCreate, Produto
 
 
 class NFeBase(BaseModel):
@@ -17,7 +17,7 @@ class NFeBase(BaseModel):
     emitente: EmitenteCreate
     destinatario: DestinatarioCreate
     transportadora: Optional[TransportadoraCreate]
-    produtos: List[ProductCreate]
+    produtos: List[ProdutoCreate]
 
 
 class NFeCreate(NFeBase):
@@ -26,7 +26,7 @@ class NFeCreate(NFeBase):
 
 class NFe(NFeBase):
     id: int
-    produtos: List[Product]
+    produtos: List[Produto]
     transportadora: Optional[Transportadora]
     emitente: Emitente
     destinatario: Destinatario

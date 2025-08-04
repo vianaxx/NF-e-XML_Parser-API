@@ -21,4 +21,4 @@ class NFe(Base):
     destinatario = relationship("Destinatario", back_populates="nfes")
     transportadora = relationship("Transportadora", back_populates="nfes")
 
-    produtos = relationship("Product", back_populates="nfe", cascade="all, delete-orphan")
+    produtos = relationship("Produtos", back_populates="nfe", cascade="all, delete-orphan")

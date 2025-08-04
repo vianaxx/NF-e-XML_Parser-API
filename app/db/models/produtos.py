@@ -2,8 +2,9 @@ from sqlalchemy import Column, Integer, String, Numeric, ForeignKey
 from sqlalchemy.orm import relationship
 from app.db.base import Base
 
-class Product(Base):
-    __tablename__ = "product"
+
+class Produtos(Base):
+    __tablename__ = "produtos"
 
     id = Column(Integer, primary_key=True, index=True)
     codigo = Column(String, nullable=False)
