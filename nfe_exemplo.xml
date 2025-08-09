@@ -1,0 +1,42 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+    <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+        <infNFe versao="4.00" Id="NFe35250833067745003908550010012204801735633938">
+            <ide>
+                ...
+            </ide>
+            <emit>
+                ...
+            </emit>
+            <dest>
+                ...
+            </dest>
+            <entrega>
+                ...
+            </entrega>
+            <det nItem="1">
+                ...
+            </det>
+            <total>
+                ...
+            </total>
+            <transp>
+                ...
+            </transp>
+            <cobr>
+                ...
+            </cobr>
+            <pag>
+                ...
+            </pag>
+            <infAdic>
+                ...
+            </infAdic>
+            <compra>
+                ...
+            </compra>
+            <infRespTec>
+                ...
+            </infRespTec>
+        </infNFe>
+</nfeProc>

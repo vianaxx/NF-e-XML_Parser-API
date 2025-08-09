@@ -3,6 +3,7 @@ from decimal import Decimal
 
 from app.schemas.nfe import NFeCreate
 from app.services.parse_destinatario import _parse_destinatario
+from app.services.parse_entrega import _parse_entrega
 from app.services.parse_emitente import _parse_emitente
 from app.services.parse_nfe_base import _extrair_chave, _extrair_data_emissao
 from app.services.parse_produto import _parse_produto
@@ -17,8 +18,9 @@ def parse_nfe_xml(xml_str: str) -> NFeCreate:
     :return: Objeto NFeCreate com os dados extraídos.
     :raises ValueError: Se o XML estiver malformado ou faltando campos esperados.
     """
+
     try:
-        doc = xmltodict.parse(xml_str)
+        doc = xmltodict.parse(xml_str, process_namespaces=False)
     except Exception as e:
         raise ValueError(f"XML inválido: {e}")
 
@@ -30,6 +32,7 @@ def parse_nfe_xml(xml_str: str) -> NFeCreate:
     ide = inf_nfe.get("ide", {})
     emit = inf_nfe.get("emit", {})
     dest = inf_nfe.get("dest", {})
+    entrega = inf_nfe.get("entrega", {})
     det = inf_nfe.get("det", [])
     transp = inf_nfe.get("transp", {}).get("transporta", {})
 
@@ -45,17 +48,9 @@ def parse_nfe_xml(xml_str: str) -> NFeCreate:
             valor_total=Decimal(inf_nfe.get("total", {}).get("ICMSTot", {}).get("vNF", "0")),
             emitente=_parse_emitente(emit),
             destinatario=_parse_destinatario(dest),
+            entrega=_parse_entrega(entrega),
             transportadora=_parse_transportadora(transp),
             produtos=[_parse_produto(item) for item in det],
         )
     except Exception as e:
         raise ValueError(f"Erro ao processar dados da NF-e: {e}")
-
-
-
-
-
-
-
-
-

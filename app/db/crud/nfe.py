@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 
 from app.db.crud.destinatario import get_or_create_destinatario
 from app.db.crud.emitente import get_or_create_emitente
+from app.db.crud.entrega import get_or_create_entrega
 from app.db.crud.transportadora import get_or_create_transportadora
 from app.db.models.nfe import NFe
 from app.db.models.emitente import Emitente
@@ -18,6 +19,7 @@ def save_nfe(db: Session, nfe_data: NFeCreate):
         raise ValueError(f"NF-e com chave {nfe_data.chave_acesso} já foi importada.")
     emitente = get_or_create_emitente(db, nfe_data.emitente)
     destinatario = get_or_create_destinatario(db, nfe_data.destinatario)
+    entrega = get_or_create_entrega(db, nfe_data.entrega)
     transportadora = get_or_create_transportadora(db, nfe_data.transportadora)
 
     nfe = NFe(
@@ -28,6 +30,7 @@ def save_nfe(db: Session, nfe_data: NFeCreate):
         valor_total=nfe_data.valor_total,
         emitente_id=emitente.id,
         destinatario_id=destinatario.id,
+        entrega_id=entrega.id,
         transportadora_id=transportadora.id
     )
     db.add(nfe)

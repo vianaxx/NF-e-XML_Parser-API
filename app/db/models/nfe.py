@@ -15,10 +15,12 @@ class NFe(Base):
 
     emitente_id = Column(Integer, ForeignKey("emitentes.id"))
     destinatario_id = Column(Integer, ForeignKey("destinatarios.id"))
+    entrega_id = Column(Integer, ForeignKey("entregas.id"))
     transportadora_id = Column(Integer, ForeignKey("transportadoras.id"))
 
     emitente = relationship("Emitente", back_populates="nfes")
     destinatario = relationship("Destinatario", back_populates="nfes")
+    entrega = relationship("Entrega", back_populates="nfes")
     transportadora = relationship("Transportadora", back_populates="nfes")
 
     produtos = relationship("Produtos", back_populates="nfe", cascade="all, delete-orphan")

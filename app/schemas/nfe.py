@@ -4,6 +4,7 @@ from decimal import Decimal
 from typing import List, Optional
 from app.schemas.emitente import EmitenteCreate, Emitente
 from app.schemas.destinatario import DestinatarioCreate, Destinatario
+from app.schemas.entrega import EntregaCreate, Entrega
 from app.schemas.transportadora import TransportadoraCreate, Transportadora
 from app.schemas.produto import ProdutoCreate, Produto
 
@@ -16,6 +17,7 @@ class NFeBase(BaseModel):
     valor_total: Decimal
     emitente: EmitenteCreate
     destinatario: DestinatarioCreate
+    entrega: EntregaCreate
     transportadora: Optional[TransportadoraCreate]
     produtos: List[ProdutoCreate]
 
@@ -30,6 +32,7 @@ class NFe(NFeBase):
     transportadora: Optional[Transportadora]
     emitente: Emitente
     destinatario: Destinatario
+    entrega: Entrega
 
     class Config:
         from_attributes = True

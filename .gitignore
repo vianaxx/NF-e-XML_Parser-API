@@ -1,0 +1,57 @@
+# Ambiente virtual
+venv/
+.venv/
+env/
+ENV/
+
+# Caches do Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Arquivos temporários e de log
+*.log
+*.tmp
+*.bak
+*.swp
+*.lnk
+
+# Arquivos de banco
+*.sqlite3
+*.db
+
+# Arquivos de build
+build/
+dist/
+*.egg-info/
+
+# Alembic migrations (ignorar apenas os arquivos .py dentro de versions)
+alembic/versions/*.py
+
+# Variáveis de ambiente
+.env
+.env.*
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# Pytest
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Arquivos temporários do Excel/Word
+~$*
+*.xlsx
+~$*.xlsx
+
+# Arquivos de dados
+*.csv
+*.tsv
+*.xml
