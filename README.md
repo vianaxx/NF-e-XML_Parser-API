@@ -1,62 +1,114 @@
+# 🇧🇷 NF-e XML Parser API
 
----
-# NFe XML Parser API
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688?style=flat-square)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0-red?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-grey?style=flat-square)
 
-Este projeto implementa uma API para o processamento e armazenamento de Notas Fiscais Eletrônicas (NF-e) a partir de arquivos XML. Ele realiza o parsing dos XMLs, extrai dados relevantes como emitente, destinatário, transportadora, produtos e impostos, e salva essas informações em um banco de dados relacional utilizando SQLAlchemy.
-
----
-
-## Tecnologias
-
-- FastAPI
-- SQLAlchemy 2.0
-- SQLite
-- lxml & xmltodict
-- Pydantic
-- pytest + httpx
+Uma API robusta e de alta performance para processamento, validação e armazenamento de Notas Fiscais Eletrônicas (NF-e) a partir de arquivos XML. O projeto foi construído seguindo princípios de **Clean Architecture** e **S.O.L.I.D**, garantindo modularidade, facilidade de manutenção e escalabilidade.
 
 ---
 
-## Funcionalidades
+## 🚀 Funcionalidades
 
-- Parser robusto para arquivos XML da NF-e (versão 4.00).
-- Modelagem relacional com entidades: Emitente, Destinatário, Transportadora, NF-e, Produto e Imposto.
-- Validação para evitar duplicidade de registros (emitente, destinatário, transportadora e NF-e).
-- Criação automática ou reutilização de entidades relacionadas ao salvar uma NF-e.
-- Relacionamentos via chaves estrangeiras para garantir integridade referencial.
-- Exemplo de uso com SQLite, mas pode ser adaptado para outros bancos.
+- **Parsing Inteligente**: Extração eficiente de dados de XMLs da NF-e (v4.00) utilizando `xmltodict`.
+- **Modelagem Relacional**: Estrutura de banco de dados normalizada com entidades para `Emitente`, `Destinatário`, `Transportadora`, `Produtos` e `Impostos`.
+- **Transações Atômicas**: Integridade de dados garantida. Se uma parte do salvamento falhar, nada é persistido.
+- **Validação de Dados**: Uso de Pydantic para validar schemas de entrada e saída.
+- **Idempotência**: Verifica duplicidades antes de inserir, evitando registros redundantes de entidades.
 
 ---
 
-## Instalação
+## 🛠️ Stack Tecnológica
 
-```bash
-pip install -r requirements.txt
-````
+- **Framework Web**: [FastAPI](https://fastapi.tiangolo.com/) - Moderno, rápido e com documentação automática.
+- **ORM**: [SQLAlchemy 2.0](https://www.sqlalchemy.org/) - Mapeamento objeto-relacional poderoso.
+- **Banco de Dados**: SQLite (padrão) / Extensível para PostgreSQL/MySQL.
+- **Parsing**: `xmltodict` e `lxml`.
+- **Testes**: `pytest` e `httpx`.
 
-## Executar API
+---
+
+## 📂 Estrutura do Projeto
+
+O projeto segue uma estrutura modular clara:
+
+```
+app/
+├── api/          # Rotas e endpoints da API
+├── core/         # Configurações globais (env vars)
+├── db/           # Configuração do banco e modelos ORM
+│   ├── crud/     # Camada de acesso a dados (Repository pattern)
+│   └── models/   # Definição das tabelas
+├── schemas/      # Modelos Pydantic (Request/Response)
+├── services/     # Regras de negócio e lógicas de parsing isoladas
+└── tests/        # Testes de integração e unitários
+```
+
+---
+
+## ⚡ Como Rodar
+
+### Pré-requisitos
+- Python 3.10 ou superior
+- Pip
+
+### Instalação
+
+1. **Clone o repositório**
+   ```bash
+   git clone https://github.com/vianaxx/NF-e-XML_Parser-API.git
+   cd NF-e-XML_Parser-API
+   ```
+
+2. **Crie um ambiente virtual**
+   ```bash
+   python -m venv venv
+   # Windows
+   .\venv\Scripts\activate
+   # Linux/Mac
+   source venv/bin/activate
+   ```
+
+3. **Instale as dependências**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Configuração**
+   O projeto usa um arquivo `.env` para configurações. Cria um arquivo `.env` na raiz (ou renomeie um exemplo) se necessário. Por padrão, ele usará um banco SQLite local.
+
+### Executando a APIService
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-## Testes
+Acesse a documentação interativa em: **http://127.0.0.1:8000/docs**
+
+---
+
+## 🧪 Testes
+
+Para rodar a suíte de testes automatizados:
 
 ```bash
 pytest
 ```
 
-## Endpoints
-
-* `POST /api/nfe/upload`: Upload do XML da NFe para parsing e salvamento no banco.
-
 ---
 
-## Estrutura do Projeto
+## 🔌 Endpoints Principais
 
-* `app/`: Código fonte
-* `tests/`: Testes automatizados
-* `requirements.txt`: Dependências
-* `README.md`: Documentação
+### `POST /api/nfe/upload`
+Envia um arquivo XML para processamento.
+
+- **Request**: `multipart/form-data`, campo `file` (arquivo .xml).
+- **Response**:
+  ```json
+  {
+    "message": "Nota fiscal processada com sucesso"
+  }
+  ```
 
 ---
